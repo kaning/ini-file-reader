@@ -1,17 +1,28 @@
 import scala.io.Source
+import scala.collection.mutable.Set
 import scala.collection.mutable.Map
+import IniFileParser._
 
-object QuickTickets { 
+object Main { 
+	
 	def main(args: Array[String]) { 
-		println("Quick tickets V 0.1")
-		val initLines = Map[Int, String]()
-		var counter:Int = 0
+		println("Ini File Parser V 0.1")
 		if (args.length > 0){
-			for(line <- Source.fromFile(args(0)).getLines){
-				initLines += (counter -> line)
-				counter + 1
+			if(args.length > 1){	
+				val env:String = args(0)
+				val envMap = Map[Int, String]()	
+				val propsMap = Map[Int, String]()	
+				val cache = Set[String]()	
+				
+				for(line <- Source.fromFile(args(0)).getLines){
+					if(!line.isEmpty()){
+						cache += line
+					}
+				}
+				println(cache)
+			}else{
+				Console.err.println("Please provide environment");
 			}
-			println(initLines(0))
 		}else{
 			Console.err.println("Please enter filename");
 		}
